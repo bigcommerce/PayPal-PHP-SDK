@@ -27,7 +27,7 @@ class FormatConverter
      */
     public static function formatToNumber($value, $decimals = 2)
     {
-        if (trim($value) != null) {
+        if (trim($value ?? '') != null) {
             return number_format($value, $decimals, '.', '');
         }
         return null;
@@ -53,7 +53,7 @@ class FormatConverter
                 throw new \InvalidArgumentException("value cannot have decimals for $currency currency");
             }
             $decimals = $currencyDecimals[$currency];
-        } elseif (strpos($value, ".") === false) {
+        } elseif (strpos($value ?? '', ".") === false) {
             // Check if value has decimal values. If not no need to assign 2 decimals with .00 at the end
             $decimals = 0;
         }

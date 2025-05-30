@@ -15,7 +15,7 @@ class ApiContextTest extends TestCase
      */
     public $apiContext;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->apiContext = new ApiContext();
     }

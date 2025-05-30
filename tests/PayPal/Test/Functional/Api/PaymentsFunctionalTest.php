@@ -24,7 +24,7 @@ class PaymentsFunctionalTest extends TestCase
 
     public $apiContext;
 
-    public function setUp()
+    public function setUp(): void
     {
         $className = $this->getClassName();
         $testName = $this->getName();
@@ -110,6 +110,7 @@ class PaymentsFunctionalTest extends TestCase
     }
 
     /**
+     * @doesNotPerformAssertions
      * @depends testGet
      * @param $payment Payment
      * @return Payment

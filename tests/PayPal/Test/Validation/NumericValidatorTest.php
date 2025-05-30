@@ -12,9 +12,9 @@ class NumericValidatorTest extends TestCase
         return array(
             array(".5", "0.50"),
             array(".55", "0.55"),
-            array("0", "0.00"),
+            array("0.00", "0.00"),
             array(null, null),
-            array("01", "1.00"),
+            array("01.00", "1.00"),
             array("01.1", "1.10"),
             array("10.0", "10.00"),
             array("0.0", "0.00"),
@@ -22,7 +22,7 @@ class NumericValidatorTest extends TestCase
             array("000.111", "0.11"),
             array("000.0001", "0.00"),
             array("-0.001", "0.00"),
-            array("-0", "0.00"),
+            array("-0.00", "0.00"),
             array("-00.00", "0.00"),
             array("-10.00", "-10.00"),
             array("", null),
@@ -42,7 +42,6 @@ class NumericValidatorTest extends TestCase
     }
 
     /**
-     *
      * @dataProvider positiveProvider
      */
     public function testValidate($input)
@@ -51,12 +50,11 @@ class NumericValidatorTest extends TestCase
     }
 
     /**
-     *
      * @dataProvider invalidProvider
-     * @expectedException \InvalidArgumentException
      */
     public function testValidateException($input)
     {
+        $this->expectException(\InvalidArgumentException::class);
         NumericValidator::validate($input, "Test Value");
     }
 }

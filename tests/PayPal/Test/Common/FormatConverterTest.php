@@ -84,7 +84,7 @@ class FormatConverterTest extends TestCase
         try {
             FormatConverter::formatToPrice("1.234", $input);
         } catch (\InvalidArgumentException $ex) {
-            $this->assertContains("value cannot have decimals for", $ex->getMessage());
+            $this->assertStringContainsString("value cannot have decimals for", $ex->getMessage());
         }
     }
 
@@ -133,15 +133,18 @@ class FormatConverterTest extends TestCase
         $setter = "set" . $method;
         $getter = "get" . $method;
         $result = $obj->$setter($values[0]);
+        if ($values[1] == '0.00') {
+//            var_dump($values[0], $values[1], $result->$getter(), $getter, $setter);exit;
+        }
         $this->assertEquals($values[1], $result->$getter());
     }
 
     /**
      * @dataProvider apiModelSettersInvalidProvider
-     * @expectedException \InvalidArgumentException
      */
     public function testSettersOfKnownApiModelInvalid($class, $methodName, $values)
     {
+        $this->expectException(\InvalidArgumentException::class);
         $obj = new $class();
         $setter = "set" . $methodName;
         $obj->$setter($values[0]);
